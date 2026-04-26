@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Okno do dvora</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
 body {
     font-family: 'Courier New', monospace;
     background: #000;
@@ -750,7 +750,7 @@ function setTestMode(){
     document.getElementById('hud-tag').style.display='block';
     document.getElementById('fps').style.display='block';
     document.getElementById('test-badge').style.display='block';
-    document.getElementById('scene').style.cursor='default';
+    document.getElementById('scene').style.cursor='none';
     setTimeout(resize,30); sliderUpdate();
 }
 function switchToLive(){
