@@ -358,7 +358,7 @@ function initClouds(){
     cloudBands=[];
     for(let i=0;i<NUM_CLOUDS;i++){
         const layer=i%3;
-        cloudBands.push({x:Math.random()*(CW+600)-300,y:CH*(0.2+layer*0.14)+Math.random()*CH*0.14,
+cloudBands.push({x:Math.random()*(CW+600)-300,y:CH*(0.04+layer*0.10)+Math.random()*CH*0.10,
             w:Math.random()*500+900,h:Math.random()*120+140,speed:.03+Math.random()*.06,
             wobble:Math.random()*Math.PI*2,dY:(Math.random()-.5)*.015,layer,alpha:0});
     }
@@ -374,8 +374,8 @@ function drawClouds(t){
     for(const b of cloudBands){
         b.x+=b.speed+wp*(1+b.layer*.18);
         b.y+=b.dY+Math.sin(t*.08+b.wobble)*.015;
-        if(b.x-b.w>CW+300){b.x=-b.w-Math.random()*260;b.y=CH*(0.2+b.layer*.14)+Math.random()*CH*.14;}
-        if(b.x+b.w<-320){b.x=CW+b.w+Math.random()*260;b.y=CH*(0.2+b.layer*.14)+Math.random()*CH*.14;}
+        if(b.x-b.w>CW+300){b.x=-b.w-Math.random()*260;b.y=CH*(0.04+b.layer*.10)+Math.random()*CH*.10;}
+        if(b.x+b.w<-320){b.x=CW+b.w+Math.random()*260;b.y=CH*(0.04+b.layer*.10)+Math.random()*CH*.10;}
         const pulse=.95+Math.sin(t*(.06+b.layer*.015)+b.wobble)*.04;
         const alpha=clamp(cDensity*alphaScale*(0.24+b.layer*.05)*pulse,0,.58);
         const width=b.w*coverScale;
@@ -388,7 +388,7 @@ function drawClouds(t){
     if(ovA>0.004){
         const sh2=Math.round(lerp(244,202,cStorm)*lerp(.72,1,cDL));
         ctx.fillStyle=`rgba(${sh2},${sh2},${Math.min(sh2+3,255)},${ovA})`;
-        ctx.fillRect(0,0,CW,CH*.74);
+        ctx.fillRect(0,0,CW,CH*.45);
     }
 }
 
@@ -464,13 +464,13 @@ function drawSkyBackdrop(fc,dl,cloud,hour){
     if(twi.intensity>0.01){const tint=twi.phase==='sunset'?[255,186,150]:[255,202,168]; horizon=mixRgb(horizon,tint,twi.intensity*0.32);}
     const g=ctx.createLinearGradient(0,0,0,CH);
     g.addColorStop(0,`rgb(${zenith.join(',')})`);
-    g.addColorStop(0.48,`rgb(${fc.join(',')})`);
+    g.addColorStop(0.30,`rgb(${fc.join(',')})`);
     g.addColorStop(1,`rgb(${horizon.join(',')})`);
     ctx.fillStyle=g; ctx.fillRect(0,0,CW,CH);
     const la=ctx.createLinearGradient(0,CH*0.52,0,CH);
     la.addColorStop(0,'rgba(255,255,255,0)');
-    la.addColorStop(0.72,`rgba(255,255,255,${lerp(0.03,0.09,1-dl)})`);
-    la.addColorStop(1,`rgba(255,255,255,${lerp(0.06,0.16,cloud/100)})`);
+    la.addColorStop(0.72,`rgba(255,255,255,${lerp(0.01,0.03,1-dl)})`);
+    la.addColorStop(1,`rgba(255,255,255,${lerp(0.02,0.06,cloud/100)})`);
     ctx.fillStyle=la; ctx.fillRect(0,CH*0.52,CW,CH*0.48);
 }
 
